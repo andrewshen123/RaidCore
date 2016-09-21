@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Addon Author="RaidCore Team" APIVersion="13" Name="RaidCore" Description="Boss Encounters" Version="1.0">
+    <!-- Libraries -->
+    <Script Name="Libs/GeminiLocale/GeminiLocale.lua"/>
+    <Script Name="Libs/GeminiDB/GeminiDB-1.0.lua"/>
+    <Script Name="Libs/GeminiAddon/GeminiAddon.lua"/>
+    <Script Name="Libs/GeminiTimer/GeminiTimer-1.0.lua"/>
+    <Script Name="Libs/GeminiGUI/GeminiGUI.lua"/>
+    <Script Name="Libs/LibJSON/LibJSON-2.5.lua"/>
+    <Script Name="Libs/Log.lua"/>
+    <!-- Global Locales -->
+    <Script Name="Locales/enUS.lua"/>
+    <Script Name="Locales/frFR.lua"/>
+    <Script Name="Locales/deDE.lua"/>
+    <!-- Forms -->
+    <Form Name="RaidCore.xml"/>
+    <!-- LUA Script -->
+    <Script Name="RaidCore.lua"/>
+    <Script Name="RaidCore_CombatInterface.lua"/>
+    <Script Name="RaidCore_BarManager.lua"/>
+    <Script Name="RaidCore_DrawManager.lua"/>
+    <Script Name="RaidCore_GUI.lua"/>
+    <Script Name="Encounters/BossPrototype.lua"/>
+    <!-- Encounters: Testing purpose -->
+    <!--@alpha@-->
+    <!--<Script Name="Encounters/TEST/GalerasTest.lua"/>-->
+    <!--@end-alpha@-->
+    <!-- Encounters: Genetic Archive -->
+    <Script Name="Encounters/GA/ExperimentX89.lua"/>
+    <Script Name="Encounters/GA/Kuralak.lua"/>
+    <Script Name="Encounters/GA/Prototypes.lua"/>
+    <Script Name="Encounters/GA/PhageMaw.lua"/>
+    <Script Name="Encounters/GA/PhageCouncil.lua"/>
+    <Script Name="Encounters/GA/Ohmna.lua"/>
+    <!-- Encounters: Datascape -->
+    <Script Name="Encounters/DS/miniboss/Earth_Bio_Enhanced_Broodmother.lua"/>
+    <Script Name="Encounters/DS/miniboss/Earth_Fully_Optimized_Canimid.lua"/>
+    <Script Name="Encounters/DS/miniboss/Earth_Logic_Guided_Rockslide.lua"/>
+    <Script Name="Encounters/DS/miniboss/Fire_Grand_Warmonger_Tar_gresh.lua"/>
+    <Script Name="Encounters/DS/miniboss/Fire_Warmonger_Agratha.lua"/>
+    <Script Name="Encounters/DS/miniboss/Fire_Warmonger_Chuna.lua"/>
+    <Script Name="Encounters/DS/miniboss/Fire_Warmonger_Talarii.lua"/>
+    <Script Name="Encounters/DS/miniboss/Frost_Frost_Boulder_Avalanche.lua"/>
+    <Script Name="Encounters/DS/miniboss/Frost_Frostbringer_Warlock.lua"/>
+    <Script Name="Encounters/DS/miniboss/Logic_Abstract_Augmentation_Algorithm.lua"/>
+    <Script Name="Encounters/DS/miniboss/Logic_Augmented_Herald_of_Avatus.lua"/>
+    <Script Name="Encounters/DS/miniboss/Logic_Hyper_Accelerated_Skeledroid.lua"/>
+    <Script Name="Encounters/DS/SystemDaemons.lua"/>
+    <Script Name="Encounters/DS/Gloomclaw.lua"/>
+    <Script Name="Encounters/DS/VolatilyLattice.lua"/>
+    <Script Name="Encounters/DS/LimboInfomatrix.lua"/>
+    <Script Name="Encounters/DS/Maelstrom.lua"/>
+    <Script Name="Encounters/DS/EpAirEarth.lua"/>
+    <Script Name="Encounters/DS/EpAirLife.lua"/>
+    <Script Name="Encounters/DS/EpAirWater.lua"/>
+    <Script Name="Encounters/DS/EpFireEarth.lua"/>
+    <Script Name="Encounters/DS/EpFireWater.lua"/>
+    <Script Name="Encounters/DS/EpFireLife.lua"/>
+    <Script Name="Encounters/DS/EpLogicEarth.lua"/>
+    <Script Name="Encounters/DS/EpLogicLife.lua"/>
+    <Script Name="Encounters/DS/EpLogicWater.lua"/>
+    <Script Name="Encounters/DS/Avatus.lua"/>
+    <!-- Encounters: Core-Y83 -->
+    <Script Name="Encounters/Y83/PrimeEvolutionaryOperant.lua"/>
+    <!-- Encounters: Redmoon Terror -->
+    <Script Name="Encounters/RMT/Shredder.lua"/>
+    <Script Name="Encounters/RMT/Robomination.lua"/>
+    <Script Name="Encounters/RMT/Engineers.lua"/>
+    <Script Name="Encounters/RMT/Mordechai.lua"/>
+    <Script Name="Encounters/RMT/miniboss/Skooty.lua"/>
+    <Script Name="Encounters/RMT/miniboss/Thrag.lua"/>
+</Addon>
