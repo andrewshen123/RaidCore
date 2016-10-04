@@ -50,8 +50,6 @@ function mod:OnUnitCreated(nId, tUnit, sName)
             core:AddUnit(tUnit)
             core:WatchUnit(tUnit)
         end
-	elseif sName == self.L["Jumpstart Charge"] and mod:GetSetting("LineThragBomb") then
-		core:AddLineBetweenUnits("PathToBomb" .. nId, GetPlayerUnit():GetId(), nId, 4, "red")
 	end
 end
 
@@ -59,4 +57,10 @@ function mod:OnUnitDestroyed(nId, tUnit, sName)
     if sName == self.L["Jumpstart Charge"] and mod:GetSetting("LineThragBomb") then
         core:RemoveLineBetweenUnits("PathToBomb" .. nId)
     end
+end
+
+function mod:OnCastStart(nId, sCastName, nCastEndTime, sName)
+	if sName == self.L["Jumpstart Charge"] and mod:GetSetting("LineThragBomb") then
+		core:AddLineBetweenUnits("PathToBomb" .. nId, GetPlayerUnit():GetId(), nId, 4, "red")
+	end
 end

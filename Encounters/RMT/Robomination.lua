@@ -133,7 +133,7 @@ function mod:OnDatachron(sMessage)
 		local tUnit = GameLib.GetPlayerUnitByName(sPlayerLasered)
 		local nId = tUnit:GetId()
 		mod:AddMsg("LASER", "LASER ON " .. sPlayerLasered, 3, false)
-		mod:AddTimerBar("INCINERATE", "INCINERATE", 40, false)
+		mod:AddTimerBar("INCINERATE", "INCINERATE", 42, false)
 		if mod:GetSetting("MarkLaser") then
 			core:AddPicture(nId, nId, "Crafting_RunecraftingSprites:sprRunecrafting_Fire_Colored", 20)
 			self:ScheduleTimer(function(nId) core:RemovePicture(nId) end, 10, nId)

@@ -90,11 +90,17 @@ function mod:OnBossEnable()
 	tCoreHPIndicators = { ["Spark Plug"] = nil, ["Cooling Turbine"] = nil, ["Lubricant Nozzle"] = nil, ["Fusion Core"] = nil }
 	
 	-- Hardcoded because I'm lazy. If it ever breaks, I'll fix it.
-	core:AddCustom("Engine Heat", 0, 100, function() return PublicEvent.GetActiveEvents()[1]:GetObjectives()[38]:GetCount() end, "FFFF0000")
-	core:AddCustom("Spark Plug", 0, 6000000, function() return PublicEvent.GetActiveEvents()[1]:GetObjectives()[46]:GetCount() * 60000 end, "FF33FFFF")
-	core:AddCustom("Cooling Turbine", 0, 6000000, function() return PublicEvent.GetActiveEvents()[1]:GetObjectives()[47]:GetCount() * 60000 end, "FFFFFFFF")
-	core:AddCustom("Lubricant Nozzle", 0, 6000000, function() return PublicEvent.GetActiveEvents()[1]:GetObjectives()[48]:GetCount() * 60000 end, "FF5900B3")
-	core:AddCustom("Fusion Core", 0, 6000000, function() return PublicEvent.GetActiveEvents()[1]:GetObjectives()[49]:GetCount() * 60000 end, "FFE65C00")
+	local nEventId = 0
+	for nEventId = 1, 10 do
+		if PublicEvent.GetActiveEvents()[nEventId]:GetName() == "Redmoon Terror" then
+			break
+		end
+	end
+	core:AddCustom("Engine Heat", 0, 100, function() return PublicEvent.GetActiveEvents()[nEventId]:GetObjectives()[38]:GetCount() end, "FFFF0000")
+	core:AddCustom("Spark Plug", 0, 6000000, function() return PublicEvent.GetActiveEvents()[nEventId]:GetObjectives()[46]:GetCount() * 60000 end, "FF33FFFF")
+	core:AddCustom("Cooling Turbine", 0, 6000000, function() return PublicEvent.GetActiveEvents()[nEventId]:GetObjectives()[47]:GetCount() * 60000 end, "FFFFFFFF")
+	core:AddCustom("Lubricant Nozzle", 0, 6000000, function() return PublicEvent.GetActiveEvents()[nEventId]:GetObjectives()[48]:GetCount() * 60000 end, "FF5900B3")
+	core:AddCustom("Fusion Core", 0, 6000000, function() return PublicEvent.GetActiveEvents()[nEventId]:GetObjectives()[49]:GetCount() * 60000 end, "FFE65C00")
 end
 
 function mod:SafeFireSwitch()
