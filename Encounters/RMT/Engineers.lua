@@ -91,7 +91,8 @@ function mod:OnBossEnable()
 	
 	-- Hardcoded because I'm lazy. If it ever breaks, I'll fix it.
 	local nEventId = 0
-	for nEventId = 1, 10 do
+	local nNumEvents = #PublicEvent.GetActiveEvents()
+	for nEventId = 1, nNumEvents do
 		if PublicEvent.GetActiveEvents()[nEventId]:GetName() == "Redmoon Terror" then
 			break
 		end
