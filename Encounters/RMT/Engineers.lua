@@ -122,8 +122,8 @@ function mod:OnUnitCreated(nId, tUnit, sName)
         core:AddUnit(tUnit)
         core:WatchUnit(tUnit)
 		if mod:GetSetting("LineSwordCleave") then
-			core:AddSimpleLine("swordcleave_1", nId, 3, 15, -60, 4, "xkcdBrightRed", nil)
-			core:AddSimpleLine("swordcleave_2", nId, 3, 15, 60, 4, "xkcdBrightRed", nil)
+			core:AddOffsetLine("swordcleave_1", nId, Vector3.New(2, 0, -2.5), 15, -59, 4, "xkcdBrightRed", nil)
+			core:AddOffsetLine("swordcleave_2", nId, Vector3.New(-2, 0, -2.5), 15, 59, 4, "xkcdBrightRed", nil)
 		end
 	elseif sName == self.L["Fusion Core"] or sName == self.L["Cooling Turbine"] or sName == self.L["Spark Plug"] or sName == self.L["Lubricant Nozzle"] then
 		tCores = tCores or {}
@@ -180,14 +180,14 @@ function mod:OnHealthChanged(nId, nPercent, sName)
 		elseif nPercent >= 19 and tCoreWarnings[sName] then
 			tCoreWarnings[sName] = false
 		end
-		if nPercent <= 15 and tCoreHPIndicators[sName] ~= "red" then
-			core:AddPolygon("HP" .. nId, GetUnitById(nId):GetPosition(), 8, 0, 6, "FFFF0000", 16)
+		if nPercent <= 16 and tCoreHPIndicators[sName] ~= "red" then
+			core:SetWorldMarker("HP" .. nId, math.floor(nPercent), GetUnitById(nId):GetPosition(), "FFFF0000")
 			tCoreHPIndicators = "red"
 		elseif nPercent <= 22 and tCoreHPIndicators[sName] ~= "yellow" then
-			core:AddPolygon("HP" .. nId, GetUnitById(nId):GetPosition(), 8, 0, 6, "FFFFFF00", 16)
+			core:SetWorldMarker("HP" .. nId, math.floor(nPercent), GetUnitById(nId):GetPosition(), "FFFFFF00")
 			tCoreHPIndicators = "yellow"
 		elseif tCoreHPIndicators[sName] ~= "green" then
-			core:AddPolygon("HP" .. nId, GetUnitById(nId):GetPosition(), 8, 0, 6, "FF00FF00", 16)
+			core:SetWorldMarker("HP" .. nId, math.floor(nPercent), GetUnitById(nId):GetPosition(), "FF00FF00")
 			tCoreHPIndicators = "green"
 		end
 	end

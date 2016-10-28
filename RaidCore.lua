@@ -465,15 +465,18 @@ function RaidCore:ResetWorldMarkers()
     end
 end
 
-function RaidCore:CreateWorldMarker(key, sText, tPosition)
+function RaidCore:CreateWorldMarker(key, sText, tPosition, sColor)
     local markFrame = Apollo.LoadForm(self.xmlDoc, "MarkFrame", "InWorldHudStratum", self)
     markFrame:SetWorldLocation(tPosition)
     markFrame:FindChild("Name"):SetText(sText)
+	if sColor then
+		markFrame:FindChild("Name"):SetTextColor(sColor)
+	end
     self.worldmarker[key] = markFrame
     self:MarkerVisibilityHandler(markFrame)
 end
 
-function RaidCore:UpdateWorldMarker(key, sText, tPosition)
+function RaidCore:UpdateWorldMarker(key, sText, tPosition, sColor)
     if sText then
         local wndText = self.worldmarker[key]:FindChild("Name")
         if wndText:GetText() ~= sText then
@@ -484,6 +487,10 @@ function RaidCore:UpdateWorldMarker(key, sText, tPosition)
     if tPosition then
         self.worldmarker[key]:SetWorldLocation(tPosition)
     end
+	
+	if sColor then
+		wndText:SetTextColor(sColor)
+	end
 end
 
 function RaidCore:DropWorldMarker(key)
@@ -494,13 +501,13 @@ function RaidCore:DropWorldMarker(key)
     end
 end
 
-function RaidCore:SetWorldMarker(key, sText, tPosition)
+function RaidCore:SetWorldMarker(key, sText, tPosition, sColor)
     assert(key)
     local tWorldMarker = self.worldmarker[key]
     if not tWorldMarker and sText and tPosition then
-        self:CreateWorldMarker(key, sText, tPosition)
+        self:CreateWorldMarker(key, sText, tPosition, sColor)
     elseif tWorldMarker and (sText or tPosition) then
-        self:UpdateWorldMarker(key, sText, tPosition)
+        self:UpdateWorldMarker(key, sText, tPosition, sColor)
     elseif tWorldMarker and not sText and not tPosition then
         self:DropWorldMarker(key)
     end
