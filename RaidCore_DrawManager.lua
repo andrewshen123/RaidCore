@@ -519,6 +519,13 @@ function Polygon:UpdateDraw(tDraw)
                     z = NewVector3({ nSin, 0, nCos }),
                 }
                 tVectors[i] = tOriginVector + Rotation(tRefVector, CornerRotate)
+				if tDraw.vOffsets ~= nil then
+					nTheta = math.acos(tFacingVector.z)
+					if tFacingVector.x > 0 then nTheta = -nTheta end
+					tVectors[i].x = tVectors[i].x + tDraw.vOffsets.x * math.cos(nTheta) - tDraw.vOffsets.z * math.sin(nTheta)
+					tVectors[i].y = tVectors[i].y + tDraw.vOffsets.y
+					tVectors[i].z = tVectors[i].z + tDraw.vOffsets.z * math.cos(nTheta) + tDraw.vOffsets.x * math.sin(nTheta)
+				end
             end
         end
     else
@@ -587,6 +594,63 @@ function Polygon:AddDraw(Key, Origin, nRadius, nRotation, nWidth, sColor, nSide)
     end
     -- Register a new object to manage.
     local tDraw = self.tDraws[Key] or NewDraw()
+    tDraw.nRadius = nRadius or 10
+    tDraw.nWidth = nWidth or 4
+    tDraw.nRotation = nRotation or 0
+    tDraw.sColor = sColor or tDraw.sColor
+    tDraw.nSide = nSide or 5
+    tDraw.nPixieIds = tDraw.nPixieIds or {}
+    tDraw.tVectors = tDraw.tVectors or {}
+
+    if OriginType == "number" then
+        -- Origin is the Id of an unit.
+        tDraw.nOriginId = Origin
+    else
+        -- Origin is the result of a GetPosition()
+        tDraw.nOriginId = nil
+        -- Precomputing coordonate of the polygon with constant origin.
+        local tOriginVector = NewVector3(Origin)
+        local tFacingVector = NewVector3(DEFAULT_NORTH_FACING)
+        local tRefVector = tFacingVector * tDraw.nRadius
+        for i = 1, tDraw.nSide do
+            local nRad = math.rad(360 * i / tDraw.nSide + tDraw.nRotation)
+            local nCos = math.cos(nRad)
+            local nSin = math.sin(nRad)
+            local CornerRotate = {
+                x = NewVector3({ nCos, 0, -nSin }),
+                y = NewVector3({ 0, 1, 0 }),
+                z = NewVector3({ nSin, 0, nCos }),
+            }
+            tDraw.tVectors[i] = tOriginVector + Rotation(tRefVector, CornerRotate)
+        end
+    end
+    -- Save this object (new or not).
+    self.tDraws[Key] = tDraw
+    -- Start the draw update service.
+    StartDrawing()
+    return BuildPublicDraw(tDraw)
+end
+
+function Polygon:AddOffsetDraw(Key, Origin, vOffsets, nRadius, nRotation, nWidth, sColor, nSide)
+	local OriginType = type(Origin)
+        if OriginType ~= "number" then
+		error("Use AddOffsetPolygon only with a unit id as the origin")
+	end
+
+    if self.tDraws[Key] then
+        -- To complex to manage new definition with nSide which change,
+        -- simplest to remove previous.
+        local bSideChanged = nSide and self.tDraws[Key].nSide ~= nSide
+        -- The width update for a Pixie don't work. It's a carbine bug.
+        local bWidthChanged = nWidth and self.tDraws[Key].nWidth ~= nWidth
+        if bSideChanged or bWidthChanged then
+            self:RemoveDraw(Key)
+        end
+    end
+    -- Register a new object to manage.
+    local tDraw = self.tDraws[Key] or NewDraw()
+	tDraw.nOffset = 0
+    tDraw.vOffsets = vOffsets or NewVector3({ 0, 0, 0 })
     tDraw.nRadius = nRadius or 10
     tDraw.nWidth = nWidth or 4
     tDraw.nRotation = nRotation or 0
@@ -846,6 +910,10 @@ end
 
 function RaidCore:AddPolygon(...)
     return Polygon:_AddDraw(...)
+end
+
+function RaidCore:AddOffsetPolygon(...)
+	return Polygon:AddOffsetDraw(...)
 end
 
 function RaidCore:GetPolygon(...)

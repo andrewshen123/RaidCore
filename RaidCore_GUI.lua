@@ -269,6 +269,7 @@ function RaidCore:GUI_init(sVersion)
         Robomination = Apollo.LoadForm(self.xmlDoc, "ConfigForm_Robomination", self.wndEncounterTarget, self),
         Engineers = Apollo.LoadForm(self.xmlDoc, "ConfigForm_Engineers", self.wndEncounterTarget, self),
         Mordechai = Apollo.LoadForm(self.xmlDoc, "ConfigForm_Mordechai", self.wndEncounterTarget, self),
+        StarEater = Apollo.LoadForm(self.xmlDoc, "ConfigForm_StarEater", self.wndEncounterTarget, self),
         RMTMinibosses = Apollo.LoadForm(self.xmlDoc, "ConfigForm_RMTMinibosses", self.wndEncounterTarget, self),
     }
 	for _,v in pairs(self.wndEncounters) do
